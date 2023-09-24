@@ -1,0 +1,19 @@
+---
+- name: Configure host.
+  hosts: all
+  vars_files:
+    - default.config.yml
+  pre_tasks:
+    - name: Install required softwares
+      apt:
+        pkg:
+          - git
+          - vim
+          - zsh
+          - tmux 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - zip
+          - unzip
+        state: present
