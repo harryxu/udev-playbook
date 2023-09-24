@@ -1,2 +1,5 @@
 ---
   timezone: Asia/Shanghai
+
+  # Docker
+  docker_install_compose_plugin: true

@@ -3,6 +3,10 @@
   hosts: all
   vars_files:
     - default.config.yml
+
+  roles:
+    - geerlingguy.docker
+
   pre_tasks:
     - name: Install required softwares
       apt:
