@@ -9,6 +9,13 @@
     - geerlingguy.docker
 
   pre_tasks:
+
+    # https://stackoverflow.com/a/26399105/157811
+    - name: get the username running the deploy
+      become: false
+      local_action: command whoami
+      register: current_username
+
     - name: Install required softwares
       apt:
         update_cache: true
