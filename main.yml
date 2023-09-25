@@ -9,6 +9,12 @@
     - geerlingguy.docker
 
   pre_tasks:
+    # https://askubuntu.com/a/1479526/7641
+    - name: Enable snapd installation.
+      command: mv /etc/apt/preferences.d/nosnap.pref /etc/apt/preferences.d/nosnap.pref.disabled
+      args:
+        removes: /etc/apt/preferences.d/nosnap.pref
+        creates: /etc/apt/preferences.d/nosnap.pref.disabled
 
     # https://stackoverflow.com/a/26399105/157811
     - name: get the username running the deploy
@@ -16,7 +22,7 @@
       local_action: command whoami
       register: current_username
 
-    - name: Install required softwares
+    - name: Apt Install required softwares
       apt:
         update_cache: true
         cache_valid_time: 3600
@@ -30,4 +36,11 @@
           - curl
           - zip
           - unzip
+          - snapd
         state: present
+
+    - name: Install snap packages with option --classic
+      community.general.snap:
+        name: 
+          - nvim
+        classic: true
