@@ -30,7 +30,7 @@
           - git
           - vim
           - zsh
-          - tmux 
+          - tmux
           - apt-transport-https
           - ca-certificates
           - curl
@@ -41,6 +41,15 @@
 
     - name: Install snap packages with option --classic
       community.general.snap:
-        name: 
+        name:
           - nvim
         classic: true
+
+  tasks:
+    - name: Create main directory for development workspace.
+      file:
+        path: /home/{{ current_username.stdout }}/dev
+        state: directory
+        owner: "{{ current_username.stdout }}"
+        group: "{{ current_username.stdout }}"
+        mode: 0775
