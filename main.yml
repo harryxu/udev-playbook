@@ -7,6 +7,7 @@
 
   roles:
     - geerlingguy.docker
+    - nephelaiio.nfs
 
   pre_tasks:
     # https://askubuntu.com/a/1479526/7641
@@ -26,17 +27,8 @@
       apt:
         update_cache: true
         cache_valid_time: 3600
-        pkg:
-          - git
-          - vim
-          - zsh
-          - tmux
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - zip
-          - unzip
-          - snapd
+        pkg: ['git', 'vim', 'zsh', 'tmux', 'curl', 'zip', 'unzip', 'snapd', 'net-tools',
+              'apt-transport-https', 'ca-certificates']
         state: present
 
     - name: Install snap packages with option --classic

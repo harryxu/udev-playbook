@@ -13,3 +13,24 @@ sudo apt install ansible
 
  * `ansible-galaxy install -r requirements.yml`
  * `ansible-playbook main.yml`
+
+
+## Troubleshooting
+
+### Python ImportError: cannot import name 'soft_unicode' from 'markupsafe'
+
+If you see errors like below:
+
+```
+[WARNING]: Skipping plugin
+(/home/vagrant/ansible/roles/nephelaiio.plugins/filter_plugins/custom_filters.py), cannot load:
+cannot import name 'soft_unicode' from 'markupsafe' (/usr/lib/python3/dist-
+packages/markupsafe/__init__.py)
+fatal: [127.0.0.1]: FAILED! => {"msg": "template error while templating string: Could not load \"sorted_get\": 'sorted_get'. String: {{ nfs_packages_server | default(nfs_packages_server_default | sorted_get(overrides)) }}. Could not load \"sorted_get\": 'sorted_get'"}
+```
+
+[Downgrade python markupsafe package to 2.0.1](https://stackoverflow.com/a/72747002/157811)
+
+```
+pip install markupsafe==2.0.1
+```
