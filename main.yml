@@ -10,6 +10,11 @@
 
 
   pre_tasks:
+    - name: Include playbook configuration.
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+
     # https://askubuntu.com/a/1479526/7641
     - name: Enable snapd installation.
       command: mv /etc/apt/preferences.d/nosnap.pref /etc/apt/preferences.d/nosnap.pref.disabled
