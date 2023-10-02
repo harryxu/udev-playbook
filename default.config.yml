@@ -6,6 +6,15 @@
   docker_users:
     - "{{ current_username.stdout }}"
 
-  # NFS
-  nfs_exports:
-    - /home/{{ current_username.stdout }}/dev *(rw,sync,no_root_squash,no_subtree_check)
+  # Samba
+  samba_users:
+    - name: "{{ current_username.stdout }}"
+      password: vagrant
+
+  samba_shares:
+    - name: dev
+      comment: 'Main dev folder'
+      group: "{{ current_username.stdout }}"
+      write_list: +{{ current_username.stdout }}
+      guest_ok: 'no'
+      path: /home/{{ current_username.stdout }}/dev

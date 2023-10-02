@@ -2,7 +2,7 @@
 roles:
   - name: yatesr.timezone
   - name: geerlingguy.docker
-  - name: nephelaiio.nfs
 
 collections:
   - name: community.general
+  - name: vladgh.samba

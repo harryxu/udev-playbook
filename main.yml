@@ -7,7 +7,7 @@
 
   roles:
     - geerlingguy.docker
-    - nephelaiio.nfs
+
 
   pre_tasks:
     # https://askubuntu.com/a/1479526/7641
@@ -45,3 +45,7 @@
         owner: "{{ current_username.stdout }}"
         group: "{{ current_username.stdout }}"
         mode: 0775
+
+    - name: Include Samba Server role
+      ansible.builtin.include_role:
+        name: vladgh.samba.server
