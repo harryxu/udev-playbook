@@ -28,6 +28,11 @@
       local_action: command whoami
       register: current_username
 
+    - name: Dot config directory.
+      stat:
+        path: /home/{{ current_username.stdout }}/.config/.git
+      register: dotconfig_git
+
     - name: Apt Install required softwares
       apt:
         update_cache: true
@@ -54,3 +59,15 @@
     - name: Include Samba Server role
       ansible.builtin.include_role:
         name: vladgh.samba.server
+
+    - name: Setup dotconfig
+      command: "{{ item }}"
+      args:
+        chdir: /home/{{ current_username.stdout }}/.config
+      with_items:
+        - "git init"
+        - "git remote add origin https://github.com/harryxu/dotconfig.git"
+        - "git fetch"
+        - "git checkout origin/main -ft"
+      become: false
+      when: not dotconfig_git.stat.exists
