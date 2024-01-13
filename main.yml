@@ -2,11 +2,13 @@
 - name: Configure host.
   hosts: all
   become: true
+
   vars_files:
     - default.config.yml
 
   roles:
     - geerlingguy.docker
+    - rolehippie.starship
 
   pre_tasks:
     - name: Include playbook configuration.
@@ -38,12 +40,17 @@
         path: /home/{{ current_username.stdout }}/.config/.git
       register: dotconfig_git
 
+    - name: Add fish shell PPA
+      apt_repository:
+        repo: ppa:fish-shell/release-3
+        state: present
+
     - name: Apt Install required softwares
       apt:
         update_cache: true
         cache_valid_time: 3600
-        pkg: ['git', 'vim', 'zsh', 'tmux', 'curl', 'zip', 'unzip', 'snapd', 'net-tools',
-              'apt-transport-https', 'ca-certificates']
+        pkg: ['git', 'vim', 'fish', 'tmux', 'zip', 'unzip', 'build-essential', 'cmake',
+              'curl', 'snapd', 'net-tools', 'apt-transport-https', 'ca-certificates']
         state: present
 
     - name: Install snap packages with option --classic
@@ -56,11 +63,8 @@
     - name: Create main directory for development workspace.
       become: false
       file:
-        path: /home/{{ current_username.stdout }}/dev
+        path: /home/{{ current_username.stdout }}/devel
         state: directory
-        owner: "{{ current_username.stdout }}"
-        group: "{{ current_username.stdout }}"
-        mode: 0775
 
     - name: Include Samba Server role
       ansible.builtin.include_role:
@@ -76,4 +80,6 @@
         - "git remote add origin https://github.com/harryxu/dotconfig.git"
         - "git fetch"
         - "git checkout origin/main -ft"
+        - "git submodule init"
+        - "git submodule update"
       when: not dotconfig_git.stat.exists
