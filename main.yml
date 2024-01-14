@@ -83,3 +83,8 @@
         - "git submodule init"
         - "git submodule update"
       when: not dotconfig_git.stat.exists
+
+    - name: Change user shell to fish
+      user:
+        name: "{{ current_username.stdout }}"
+        shell: /usr/bin/fish
