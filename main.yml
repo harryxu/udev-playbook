@@ -11,6 +11,11 @@
     - rolehippie.starship
 
   pre_tasks:
+    - name: Ensure a locale exists
+      community.general.locale_gen:
+        state: present
+        name: C.UTF-8
+
     - name: Include playbook configuration.
       include_vars: "{{ item }}"
       with_fileglob:
