@@ -14,6 +14,7 @@
   samba_shares:
     - name: dev
       comment: 'Main dev folder'
+      owner: "{{ current_username.stdout }}"
       group: "{{ current_username.stdout }}"
       write_list: +{{ current_username.stdout }}
       guest_ok: 'no'

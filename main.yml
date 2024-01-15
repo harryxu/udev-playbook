@@ -63,7 +63,7 @@
     - name: Create main directory for development workspace.
       become: false
       file:
-        path: /home/{{ current_username.stdout }}/devel
+        path: /home/{{ current_username.stdout }}/dev
         state: directory
 
     - name: Include Samba Server role
