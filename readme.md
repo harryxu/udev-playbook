@@ -17,7 +17,7 @@ sudo apt install ansible
 
 ## Troubleshooting
 
-### `ERROR: Ansible requires the locale encoding to be UTF-8; Detected None.`
+### ERROR: Ansible requires the locale encoding to be UTF-8; Detected None.
 
 
 ```shell
