@@ -17,6 +17,13 @@ sudo apt install ansible
 
 ## Troubleshooting
 
+### `ERROR: Ansible requires the locale encoding to be UTF-8; Detected None.`
+
+
+```shell
+$ export  LC_ALL=en_US.utf-8
+```
+
 ### Python ImportError: cannot import name 'soft_unicode' from 'markupsafe'
 
 If you see errors like below:
