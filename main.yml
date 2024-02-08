@@ -52,14 +52,8 @@
         update_cache: true
         cache_valid_time: 3600
         pkg: ['git', 'vim', 'fish', 'tmux', 'zip', 'unzip', 'build-essential', 'cmake',
-              'curl', 'snapd', 'net-tools', 'apt-transport-https', 'ca-certificates']
+              'curl', 'net-tools', 'apt-transport-https', 'ca-certificates']
         state: present
-
-    - name: Install snap packages with option --classic
-      community.general.snap:
-        name:
-          - nvim
-        classic: true
 
   tasks:
     - name: Create main directory for development workspace.
@@ -67,6 +61,9 @@
       file:
         path: /home/{{ current_username.stdout }}/dev
         state: directory
+
+    - name: Install Neovim
+      include_tasks: tasks/nvim.yml
 
     - name: Include Samba Server role
       ansible.builtin.include_role:
