@@ -16,5 +16,5 @@
     - "chmod u+x nvim.appimage"
     - "./nvim.appimage --appimage-extract"
     - "mv ./squashfs-root/ /opt/nvim-squashfs-root/"
-    - "ln -s /squashfs-root/AppRun /usr/bin/nvim"
+    - "ln -s /opt/nvim-squashfs-root/AppRun /usr/bin/nvim"
   when: not nvim_executeable.stat.exists
