@@ -1,0 +1,14 @@
+
+---
+
+- name: zoxide executeable
+  stat:
+    path: /home/{{ current_username.stdout }}/.local/bin/zoxide
+  register: zoxide_executeable
+
+# https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation
+- name: Install zoxide
+  command: "{{ item }}"
+  with_items:
+    - "curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh"
+  when: not zoxide_executeable.stat.exists

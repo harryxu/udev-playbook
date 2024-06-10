@@ -52,6 +52,7 @@
         update_cache: true
         cache_valid_time: 3600
         pkg: ['git', 'vim', 'fish', 'tmux', 'zip', 'unzip', 'build-essential', 'cmake',
+              'fzf',
               'curl', 'net-tools', 'apt-transport-https', 'ca-certificates']
         state: present
 
@@ -64,6 +65,9 @@
 
     - name: Install Neovim
       include_tasks: tasks/nvim.yml
+
+    - name: Install zoxide.yml
+      include_tasks: tasks/zoxide.yml
 
     - name: Include Samba Server role
       ansible.builtin.include_role:
