@@ -1,7 +1,7 @@
 ---
 - name: Configure host.
   hosts: all
-  become: true
+  become: yes
 
   vars_files:
     - default.config.yml
@@ -28,10 +28,20 @@
         removes: /etc/apt/preferences.d/nosnap.pref
         creates: /etc/apt/preferences.d/nosnap.pref.disabled
 
+
+    - name: Apt Install required softwares
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+        pkg: ['git', 'vim', 'tmux', 'zip', 'unzip', 'build-essential', 'cmake',
+              'fzf', 'gnupg2',
+              'curl', 'net-tools', 'apt-transport-https', 'ca-certificates']
+        state: present
+
     # https://stackoverflow.com/a/26399105/157811
     - name: get the username running the deploy
       become: false
-      local_action: command whoami
+      action: command whoami
       register: current_username
 
     - name: Ensure dotconfig directory exists.
@@ -45,16 +55,8 @@
         path: /home/{{ current_username.stdout }}/.config/.git
       register: dotconfig_git
 
-    - include_tasks: tasks/fishshell-repo.yml
+    - include_tasks: tasks/fishshell.yml
 
-    - name: Apt Install required softwares
-      apt:
-        update_cache: true
-        cache_valid_time: 3600
-        pkg: ['git', 'vim', 'fish', 'tmux', 'zip', 'unzip', 'build-essential', 'cmake',
-              'fzf',
-              'curl', 'net-tools', 'apt-transport-https', 'ca-certificates']
-        state: present
 
   tasks:
     - name: Create main directory for development workspace.

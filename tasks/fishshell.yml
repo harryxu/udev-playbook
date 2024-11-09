@@ -20,3 +20,9 @@
         filename: shells:fish:release:3
 
   when: ansible_distribution == "Debian"
+
+- name: Install fish shell
+  apt:
+    update_cache: true
+    pkg: ['fish']
+    state: present

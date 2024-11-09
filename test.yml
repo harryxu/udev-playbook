@@ -1,0 +1,8 @@
+---
+- name: Configure host.
+  hosts: all
+
+  tasks:
+    - name: list files in tmp folder
+      become: false
+      command: ls /tmp/
