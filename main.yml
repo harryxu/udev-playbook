@@ -69,10 +69,6 @@
     - name: Install zoxide.yml
       include_tasks: tasks/zoxide.yml
 
-    - name: Include Samba Server role
-      ansible.builtin.include_role:
-        name: vladgh.samba.server
-
     - name: Setup dotconfig
       become: false
       command: "{{ item }}"
