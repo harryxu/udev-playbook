@@ -1,2 +1,6 @@
 {
+  "ansible.validation.lint.enabled": false,
+  "files.associations": {
+    "*.yml": "ansible",
+  }
 }

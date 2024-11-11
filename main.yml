@@ -12,7 +12,7 @@
 
   pre_tasks:
     - name: Ensure the locale exists
-      locale_gen:
+      community.general.locale_gen:
         name: en_US.UTF-8
         state: present
 

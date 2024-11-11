@@ -1,6 +1,6 @@
 ---
 
-- name: zoxide executeable
+- name: Zoxide executeable
   become: false
   stat:
     path: /home/{{ current_username.stdout }}/.local/bin/zoxide
